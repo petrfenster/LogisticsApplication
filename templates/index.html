@@ -1,10 +1,56 @@
 {% extends 'base.html' %}
 
 {% block head %}
-
+<h1>Inventory management system</h1>
 {% endblock %}
 
 {% block body %}
-<h1>Template</h1>
+<div class="content">
+    <table>
+        <tr>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Product Description</th>
+            <th>Product Type</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Actions</th>
+        </tr>
+        {% for product in products %}
+            <tr>
+                <td>{{ product.id }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.type }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.quantity }}</td>
+                <td>
+                    <a href="/edit/{{product.id}}">Edit</a>
+                    <br>
+                    <a href="/add_one_item/{{product.id}}">Add One Item</a>
+                    <br>
+                    <a href="/remove_one_item/{{product.id}}">Remove One Item</a>
+                    <br>
+                    <a href="/delete/{{product.id}}">Delete Product</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <form action="/" method="POST">
+        <label for="name">Product Name:</label>
+        <input type="text" name="name" id="name"><br>
+        <label for="description">Product Description:</label>
+        <input type="text" name="description" id="description"><br>
+        <label for="type">Product Type:</label>
+        <input type="text" name="type" id="type"><br>
+        <label for="price">Product Price:</label>
+        <input type="text" name="price" id="price"><br>
+        <label for="quantity">Product Quantity:</label>
+        <input type="text" name="quantity" id="quantity"><br>
+        <input type="submit" value="Add Product">
+
+    </form>
+</div>
 {% endblock %}
 

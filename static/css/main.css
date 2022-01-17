@@ -1,4 +1,27 @@
-body {
+body, html {
     margin: 0;
     font-family: sans-serif;
+}
+
+.content {
+    margin: 1px;
+    width: 400px;
+}
+
+table, td, th {
+    border: 1px solid #aaa;
+}
+
+table {
+    table-layout: auto;
+    width: 100%;
+}
+
+th {
+    height: 20px;
+}
+
+td {
+    width: 100px;
+    padding: 50px;
 }
