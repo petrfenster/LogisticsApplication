@@ -30,7 +30,16 @@ $ pip install virtualenv
 $ virtualenv venv
 ```
 
-3. Then run the command:
+3. Then run one of the following commands:
+
+For MacOS:
+
+```
+$ ./venv/Scripts/activate
+```
+
+For Windows:
+
 ```
 $ .\venv\Scripts\activate
 ```
@@ -46,6 +55,8 @@ $ (venv) python app.py
 ```
 
 This server will start on port 5000 by default. You can change this in `app.py` by changing the following line to this:
+Please ensure that there is no other application currently using the selected port.
+
 
 ```python
 if __name__ == "__main__":
