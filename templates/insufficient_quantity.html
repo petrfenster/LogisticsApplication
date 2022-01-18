@@ -8,7 +8,9 @@
 <div class="content">
     <strong>The quantity of</strong>
     <strong>{{product.name}} (id: {{product.id}})</strong>
-    <strong>is already 0</strong>
+    <strong>is insufficient to complete this shipment.</strong><br>
+    <strong>Requested quantity: {{requested_quantity}}</strong><br>
+    <strong>Items in stocks: {{quantity_in_stock}}</strong>
 
     <div class="form">
         <form action="/to_main">

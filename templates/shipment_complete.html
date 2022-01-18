@@ -6,9 +6,9 @@
 
 {% block body %}
 <div class="content">
-    <strong>The quantity of</strong>
-    <strong>{{product.name}} (id: {{product.id}})</strong>
-    <strong>is already 0</strong>
+    <strong>Success! The order with the total price of $</strong>
+    <strong>{{total_price}} and with {{total_quantity}} items</strong>
+    <strong>has been shipped to {{address}}</strong>
 
     <div class="form">
         <form action="/to_main">

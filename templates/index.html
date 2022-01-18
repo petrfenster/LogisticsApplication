@@ -6,6 +6,70 @@
 
 {% block body %}
 <div class="content">
+    <h2>Add product:</h2>
+
+    <form action="/" method="POST">
+        <label for="name">Product Name:</label>
+        <input type="text" name="name" id="name"><br>
+        <label for="description">Product Description:</label>
+        <input type="text" name="description" id="description"><br>
+        <label for="type">Product Type:</label>
+        <select id="type" name="type">
+            <option value="car">Car</option>
+            <option value="truck">Truck</option>
+            <option value="aircraft">Aircraft</option>
+            <option value="watercraft">Watercraft</option>
+            <option value="train">Train</option>
+        </select><br>
+        <label for="price">Product Price:</label>
+        <input type="text" name="price" id="price"><br>
+        <label for="quantity">Product Quantity:</label>
+        <input type="text" name="quantity" id="quantity"><br>
+        <input type="submit" value="Add Product">
+    </form>
+
+    <br>
+    <br>
+
+    <h2>Create a shipment:</h2>
+
+    <form action="/ship" method="POST">
+        <label for="address">Shipping address: </label>
+        <input type="String" name="address" id="address"><br>
+
+        <label for="id1">Item 1 id:</label>
+        <input type="Integer" name="id1" id="id1" value="0">
+        <label for="quantity1">Item 1 quantity:</label>
+        <input type="Integer" name="quantity1" id="quantity1" value="0"><br>
+
+        <label for="id2">Item 2 id:</label>
+        <input type="Integer" name="id2" id="id2" value="0">
+        <label for="quantity2">Item 2 quantity:</label>
+        <input type="Integer" name="quantity2" id="quantity2" value="0"><br>
+
+        <label for="id3">Item 3 id:</label>
+        <input type="Integer" name="id3" id="id3" value="0">
+        <label for="quantity3">Item 3 quantity:</label>
+        <input type="Integer" name="quantity3" id="quantity3" value="0"><br>
+
+        <label for="id4">Item 4 id:</label>
+        <input type="Integer" name="id4" id="id4" value="0">
+        <label for="quantity4">Item 4 quantity:</label>
+        <input type="Integer" name="quantity4" id="quantity4" value="0"><br>
+
+        <label for="id5">Item 5 id:</label>
+        <input type="Integer" name="id5" id="id5" value="0">
+        <label for="quantity5">Item 5 quantity:</label>
+        <input type="Integer" name="quantity5" id="quantity5" value="0"><br>
+
+        <input type="submit" value="Ship">
+    </form>
+
+    <br>
+    <br>
+
+    <h2>Current inventory:</h2>
+
     <table>
         <tr>
             <th>Product ID</th>
@@ -36,27 +100,6 @@
             </tr>
         {% endfor %}
     </table>
-
-    <form action="/" method="POST">
-        <label for="name">Product Name:</label>
-        <input type="text" name="name" id="name"><br>
-        <label for="description">Product Description:</label>
-        <input type="text" name="description" id="description"><br>
-        <label for="type">Product Type:</label>
-        <select id="type" name="type">
-            <option value="car">Car</option>
-            <option value="truck">Truck</option>
-            <option value="aircraft">Aircraft</option>
-            <option value="watercraft">Watercraft</option>
-            <option value="train">Train</option>
-        </select><br>
-        <label for="price">Product Price:</label>
-        <input type="text" name="price" id="price"><br>
-        <label for="quantity">Product Quantity:</label>
-        <input type="text" name="quantity" id="quantity"><br>
-        <input type="submit" value="Add Product">
-
-    </form>
 </div>
 {% endblock %}
 

@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for, request, redirect, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.inspection import inspect
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
@@ -90,14 +91,85 @@ def remove_one_item(product_id):
         except:
             return "Sorry, there was an issue removing an item"
     else:
-        if request.method == 'POST':
-            try:
-                db.session.commit()
-                return redirect('/')
-            except:
-                return "Sorry, there was an issue removing an item"
-        else:
-            return render_template('zero_quantity.html', product=product_to_remove_one_item)
+        return render_template('zero_quantity.html', product=product_to_remove_one_item)
+
+# Going back to main page
+@app.route('/to_main')
+def to_main():
+    products = Product.query.all()
+    return render_template('index.html', products=products)
+
+# Adding one instance of a selected product (i.e. increasing quantity of a selected product by one)
+@app.route('/ship', methods=['GET', 'POST'])
+def ship():
+    if request.method == 'POST':
+        address = request.form['address']
+        id1 = int(request.form['id1'])
+        id2 = int(request.form['id2'])
+        id3 = int(request.form['id3'])
+        id4 = int(request.form['id4'])
+        id5 = int(request.form['id5'])
+        quantity1 = int(request.form['quantity1'])
+        quantity2 = int(request.form['quantity2'])
+        quantity3 = int(request.form['quantity3'])
+        quantity4 = int(request.form['quantity4'])
+        quantity5 = int(request.form['quantity5'])
+        ids = [id1, id2, id3, id4, id5]
+        quantities = [quantity1, quantity2, quantity3, quantity4, quantity5]
+        total_price = 0
+        total_quantity = 0
+        ready_to_ship = []
+        products_available = Product.query.all()
+        products_available_ids = set()
+        for product in products_available:
+            products_available_ids.add(product.id)
+        print(products_available_ids)
+
+        for shipment_item_id in range(0, 5):
+
+            # That means that this field in shipment request was left blank
+            if ids[shipment_item_id] == 0:
+                pass
+
+            # Checking if all the ids specified in the shipment request are available in the inventory
+            elif ids[shipment_item_id] not in products_available_ids:
+                return render_template('invalid_id.html', product_id=ids[shipment_item_id])
+            else:
+
+                product_to_ship = Product.query.get_or_404(ids[shipment_item_id])
+
+                # Checking if each requested product has sufficient quantity
+                if product_to_ship.quantity >= quantities[shipment_item_id]:
+                    ready_to_ship.append(shipment_item_id)
+                else:
+                    return render_template('insufficient_quantity.html',
+                                           product=product_to_ship,
+                                           requested_quantity=quantities[shipment_item_id],
+                                           quantity_in_stock=product_to_ship.quantity)
+
+        # Itirating over the list of Shipment Request IDs that are ready to ship
+        for shipment_item_id in ready_to_ship:
+            product = Product.query.get_or_404(ids[shipment_item_id])
+            current_quantity = product.quantity
+            product.quantity = current_quantity - quantities[shipment_item_id]
+            total_price += quantities[shipment_item_id]*product.price
+            total_quantity += quantities[shipment_item_id]
+
+        try:
+            db.session.commit()
+            return render_template('shipment_complete.html',
+                                   total_price=total_price,
+                                   total_quantity=total_quantity,
+                                   address=address)
+        except:
+            return "Sorry, there was an issue saving your changes"
+
+        try:
+            db.session.commit()
+            return redirect('/')
+        except:
+            return "Sorry, there was an issue adding an item"
+
 
 
 # Editing selected product's information.
@@ -121,6 +193,8 @@ def edit(product_id):
 
     else:
         return render_template('edit.html', product=product_to_edit)
+
+
 
 
 # Error Handlers:
@@ -157,3 +231,4 @@ def internal_server_error(e):
 
 if __name__ == "__main__":
     app.run(debug=True)
+
