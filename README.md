@@ -8,7 +8,7 @@ to them.
 This application is specifically designed for companies that sell different
 types of vehicles.
 
-The parametrs of an inventory item include:
+The parameters of an inventory item include:
 - id (cannot be changed, assigned automatically)
 - name
 - description
@@ -32,7 +32,7 @@ $ virtualenv venv
 
 3. Then run one of the following commands:
 
-For MacOS:
+For macOS:
 
 ```
 $ ./venv/Scripts/activate
@@ -49,7 +49,7 @@ $ .\venv\Scripts\activate
 $ (venv) pip install -r requirements.txt
 ```
 
-5. Finally start the web server:
+5. Finally, start the web server:
 ```
 $ (venv) python app.py
 ```
@@ -61,3 +61,6 @@ Please ensure that there is no other application currently using the selected po
 ```python
 if __name__ == "__main__":
     app.run(debug=True, port=<desired port>)
+```
+
+Use CTRL-C / ^C to finish to exit the application
